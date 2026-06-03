@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,8 +16,8 @@ export default function Login() {
       setLoading(true);
 
       const url = isLogin
-        ? "http://localhost:5000/login"
-        : "http://localhost:5000/signup";
+        ? `${BASE_URL}/login`
+        : `${BASE_URL}/signup`;
 
       const res = await axios.post(url, { email, password });
 

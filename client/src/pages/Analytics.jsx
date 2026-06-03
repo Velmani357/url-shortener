@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 //import { useOutletContext, useSearchParams } from "react-router-dom";
 import { Link, useOutletContext, useSearchParams } from "react-router-dom";
+import { BASE_URL } from "../config";
 import { 
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid 
 } from "recharts";
@@ -62,7 +63,7 @@ export default function Analytics() {
   }, [selectedUrl]);
 
   const handleCopyLink = (shortCode) => {
-    const link = `http://localhost:5000/${shortCode}`;
+    const link = `${BASE_URL}/${shortCode}`;
     navigator.clipboard.writeText(link);
     setCopied(true);
     toast.success("Copied short URL to clipboard!");
@@ -97,7 +98,7 @@ export default function Analytics() {
   };
 
   const shareNative = async (code) => {
-    const link = `http://localhost:5000/${code}`;
+    const link = `${BASE_URL}/${code}`;
     const canvas = document.getElementById(`qr-${code}`);
     if (!canvas) return;
     canvas.toBlob(async (blob) => {
@@ -413,7 +414,7 @@ export default function Analytics() {
             <div className="qr-card-content">
               <div className="qr-canvas-container" style={{ background: "#fff", padding: "10px", borderRadius: "10px", display: "inline-flex" }}>
                 <QRCodeCanvas 
-                  value={`http://localhost:5000/${selectedUrl.shortCode}`} 
+                  value={`${BASE_URL}/${selectedUrl.shortCode}`} 
                   size={120}
                   id={`qr-${selectedUrl.shortCode}`}
                   level={"H"}
@@ -437,13 +438,13 @@ export default function Analytics() {
               </div>
               
               <div style={{ display: "flex", gap: "10px", marginTop: "5px" }}>
-                <button className="action-btn" title="Share WhatsApp" style={{ background: "#25D366", color: "#fff", border: "none" }} onClick={() => window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent("http://localhost:5000/" + selectedUrl.shortCode)}`, "_blank")}>
+                <button className="action-btn" title="Share WhatsApp" style={{ background: "#25D366", color: "#fff", border: "none" }} onClick={() => window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(`${BASE_URL}/${selectedUrl.shortCode}`)}`, "_blank")}>
                   <FaWhatsapp />
                 </button>
-                <button className="action-btn" title="Share Telegram" style={{ background: "#0088cc", color: "#fff", border: "none" }} onClick={() => window.open(`https://t.me/share/url?url=${encodeURIComponent("http://localhost:5000/" + selectedUrl.shortCode)}`, "_blank")}>
+                <button className="action-btn" title="Share Telegram" style={{ background: "#0088cc", color: "#fff", border: "none" }} onClick={() => window.open(`https://t.me/share/url?url=${encodeURIComponent(`${BASE_URL}/${selectedUrl.shortCode}`)}`, "_blank")}>
                   <FaTelegramPlane />
                 </button>
-                <button className="action-btn" title="Share Email" style={{ background: "#ea4335", color: "#fff", border: "none" }} onClick={() => window.open(`mailto:?subject=Shortened%20Link&body=Check%20out%20this%20link:%20http://localhost:5000/${selectedUrl.shortCode}`, "_blank")}>
+                <button className="action-btn" title="Share Email" style={{ background: "#ea4335", color: "#fff", border: "none" }} onClick={() => window.open(`mailto:?subject=Shortened%20Link&body=Check%20out%20this%20link:%20${BASE_URL}/${selectedUrl.shortCode}`, "_blank")}>
                   <FaEnvelope />
                 </button>
                 <button className="action-btn" title="Native System Share" style={{ background: "var(--cyan)", color: "var(--bg-darker)", border: "none" }} onClick={() => shareNative(selectedUrl.shortCode)}>

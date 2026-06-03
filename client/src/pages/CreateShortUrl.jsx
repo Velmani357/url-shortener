@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 import { FiPlus, FiCheck, FiCopy, FiBarChart2 } from "react-icons/fi";
 import "./Dashboard.css";
 
@@ -25,7 +26,7 @@ export default function CreateShortUrl() {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:5000/shorten",
+        `${BASE_URL}/shorten`,
         { longUrl, customAlias, expiresAt: expiresAt || null },
         { headers: { Authorization: token } }
       );
@@ -47,7 +48,7 @@ export default function CreateShortUrl() {
   };
 
   const handleCopyLink = (shortCode) => {
-    const link = `http://localhost:5000/${shortCode}`;
+    const link = `${BASE_URL}/${shortCode}`;
     navigator.clipboard.writeText(link);
     toast.success("Copied to clipboard!");
   };
@@ -112,12 +113,12 @@ export default function CreateShortUrl() {
           <h3 className="success-title"><FiCheck /> Short Link Created Successfully!</h3>
           <div className="success-box">
             <a 
-              href={`http://localhost:5000/${lastShortened.shortCode}`}
+              href={`${BASE_URL}/${lastShortened.shortCode}`}
               target="_blank"
               rel="noreferrer"
               className="success-link"
             >
-              http://localhost:5000/{lastShortened.shortCode}
+              {`${BASE_URL}/${lastShortened.shortCode}`}
             </a>
             <div className="success-actions">
               <button 

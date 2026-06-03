@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 import { 
   FiCopy, FiEdit2, FiTrash2, FiExternalLink, FiBarChart2, FiPlus, FiSearch
 } from "react-icons/fi";
@@ -39,7 +40,7 @@ export default function MyUrls() {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/url/${deleteUrlId}`, {
+      await axios.delete(`${BASE_URL}/url/${deleteUrlId}`, {
         headers: { Authorization: token },
       });
       toast.success("Link deleted successfully!");
@@ -62,7 +63,7 @@ export default function MyUrls() {
 
     try {
       await axios.put(
-        `http://localhost:5000/url/${editUrlId}`,
+        `${BASE_URL}/url/${editUrlId}`,
         { longUrl: newDestination },
         { headers: { Authorization: token } }
       );
@@ -75,7 +76,7 @@ export default function MyUrls() {
   };
 
   const handleCopyLink = (shortCode) => {
-    const link = `http://localhost:5000/${shortCode}`;
+    const link = `${BASE_URL}/${shortCode}`;
     navigator.clipboard.writeText(link);
     toast.success("Copied to clipboard!");
   };
@@ -113,7 +114,7 @@ export default function MyUrls() {
   };
 
   const shareNative = async (code) => {
-    const link = `http://localhost:5000/${code}`;
+    const link = `${BASE_URL}/${code}`;
     const canvas = document.getElementById(`qr-${code}`);
     if (!canvas) return;
     canvas.toBlob(async (blob) => {
@@ -255,7 +256,7 @@ export default function MyUrls() {
                       </td>
                       <td>
                         <a 
-                          href={`http://localhost:5000/${url.shortCode}`} 
+                          href={`${BASE_URL}/${url.shortCode}`} 
                           target="_blank" 
                           rel="noreferrer" 
                           className="short-link"
@@ -389,7 +390,7 @@ export default function MyUrls() {
             <div className="qr-card-content" style={{ marginTop: "10px" }}>
               <div className="qr-canvas-container" style={{ background: "#fff", padding: "12px", borderRadius: "10px", display: "inline-block" }}>
                 <QRCodeCanvas 
-                  value={`http://localhost:5000/${shareUrl.shortCode}`} 
+                  value={`${BASE_URL}/${shareUrl.shortCode}`} 
                   size={160}
                   id={`qr-${shareUrl.shortCode}`}
                   level={"H"}
@@ -418,7 +419,7 @@ export default function MyUrls() {
               <span className="input-label" style={{ display: "block", marginBottom: "8px" }}>Short Link URL</span>
               <div style={{ background: "rgba(0,0,0,0.3)", padding: "10px 15px", borderRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "center", border: "1px solid rgba(255,255,255,0.05)" }}>
                 <span style={{ color: "var(--cyan)", fontFamily: "Share Tech Mono, monospace", fontSize: "15px" }}>
-                  http://localhost:5000/{shareUrl.shortCode}
+                  {`${BASE_URL}/${shareUrl.shortCode}`}
                 </span>
                 <button 
                   className="action-btn copy-btn" 
@@ -437,7 +438,7 @@ export default function MyUrls() {
                   className="action-btn"
                   title="Share on WhatsApp"
                   style={{ background: "#25D366", color: "#fff", border: "none", width: "40px", height: "40px" }}
-                  onClick={() => window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent("http://localhost:5000/" + shareUrl.shortCode)}`, "_blank")}
+                  onClick={() => window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(`${BASE_URL}/${shareUrl.shortCode}`)}`, "_blank")}
                 >
                   <FaWhatsapp size={18} />
                 </button>
@@ -445,7 +446,7 @@ export default function MyUrls() {
                   className="action-btn"
                   title="Share on Telegram"
                   style={{ background: "#0088cc", color: "#fff", border: "none", width: "40px", height: "40px" }}
-                  onClick={() => window.open(`https://t.me/share/url?url=${encodeURIComponent("http://localhost:5000/" + shareUrl.shortCode)}&text=${encodeURIComponent("Check out this shortened link!")}`, "_blank")}
+                  onClick={() => window.open(`https://t.me/share/url?url=${encodeURIComponent(`${BASE_URL}/${shareUrl.shortCode}`)}&text=${encodeURIComponent("Check out this shortened link!")}`, "_blank")}
                 >
                   <FaTelegramPlane size={18} />
                 </button>
@@ -453,7 +454,7 @@ export default function MyUrls() {
                   className="action-btn"
                   title="Share via Email"
                   style={{ background: "#ea4335", color: "#fff", border: "none", width: "40px", height: "40px" }}
-                  onClick={() => window.open(`mailto:?subject=Shortened%20Link&body=Check%20out%20this%20short%20link:%20http://localhost:5000/${shareUrl.shortCode}`, "_blank")}
+                  onClick={() => window.open(`mailto:?subject=Shortened%20Link&body=Check%20out%20this%20short%20link:%20${BASE_URL}/${shareUrl.shortCode}`, "_blank")}
                 >
                   <FaEnvelope size={18} />
                 </button>

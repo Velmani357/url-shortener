@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 import { 
   FiGrid, FiPlus, FiLink, FiBarChart2, FiLayers, FiLogOut, FiActivity, FiSettings
 } from "react-icons/fi";
@@ -29,7 +30,7 @@ export default function DashboardLayout() {
   const fetchUrls = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/myurls", {
+      const res = await axios.get(`${BASE_URL}/myurls`, {
         headers: { Authorization: token },
       });
       setUrls(res.data);

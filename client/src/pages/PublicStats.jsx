@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../config";
 import { 
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid 
 } from "recharts";
@@ -24,7 +25,9 @@ export default function PublicStats() {
   const fetchPublicStats = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/public/stats/${shortCode}`);
+      const res = await axios.get(
+        `${BASE_URL}/api/public/stats/${shortCode}`
+      );
       setData(res.data);
     } catch (err) {
       toast.error(err.response?.data?.message || "Error loading statistics");
@@ -34,7 +37,7 @@ export default function PublicStats() {
   };
 
   const handleCopy = () => {
-    const link = `http://localhost:5000/${shortCode}`;
+    const link = `${BASE_URL}/${shortCode}`;
     navigator.clipboard.writeText(link);
     setCopied(true);
     toast.success("Short link copied!");

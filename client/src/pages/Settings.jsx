@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 import { FiSettings, FiKey, FiCpu, FiUser, FiEye, FiEyeOff, FiCopy, FiCheck } from "react-icons/fi";
 import "./Dashboard.css";
 
@@ -14,7 +15,7 @@ export default function Settings() {
   
   // Form preference states
   const [defaultExpiryDays, setDefaultExpiryDays] = useState("30");
-  const [defaultDomain, setDefaultDomain] = useState("http://localhost:5000");
+  const [defaultDomain, setDefaultDomain] = useState(BASE_URL);
   const [themeColor, setThemeColor] = useState("cyan");
 
   useEffect(() => {

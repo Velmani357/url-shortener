@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 import { FiUploadCloud, FiLayers, FiCheck, FiCopy, FiAlertTriangle, FiDownload } from "react-icons/fi";
 import "./Dashboard.css";
 
@@ -100,7 +101,7 @@ export default function BulkImport() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/shorten/bulk",
+        `${BASE_URL}/shorten/bulk`,
         { urls: validUrls.map(item => item.url) },
         { headers: { Authorization: token } }
       );
@@ -165,7 +166,7 @@ export default function BulkImport() {
   };
 
   const handleCopyLink = (shortCode, id) => {
-    const link = `http://localhost:5000/${shortCode}`;
+    const link = `${BASE_URL}/${shortCode}`;
     navigator.clipboard.writeText(link);
     setCopiedId(id);
     toast.success("Link copied!");
@@ -304,7 +305,7 @@ export default function BulkImport() {
                             <td className="url-col"><div className="url-truncated">{url.longUrl}</div></td>
                             <td>
                               <a 
-                                href={`http://localhost:5000/${url.shortCode}`} 
+                                href={`${BASE_URL}/${url.shortCode}`} 
                                 target="_blank" 
                                 rel="noreferrer" 
                                 className="short-link"

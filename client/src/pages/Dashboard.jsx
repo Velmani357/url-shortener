@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 import { QRCodeCanvas } from "qrcode.react";
 import { 
   FiGrid, FiPlus, FiLink, FiBarChart2, FiLayers, FiLogOut, FiGlobe,
@@ -81,7 +82,7 @@ export default function Dashboard() {
 
   const fetchUrls = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/myurls", {
+      const res = await axios.get(`${BASE_URL}/myurls`, {
         headers: { Authorization: token },
       });
       setUrls(res.data);
@@ -103,7 +104,7 @@ export default function Dashboard() {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:5000/shorten",
+        `${BASE_URL}/shorten`,
         { longUrl, customAlias, expiresAt: expiresAt || null },
         { headers: { Authorization: token } }
       );
@@ -127,7 +128,7 @@ export default function Dashboard() {
     if (!window.confirm("Are you sure you want to delete this short URL?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/url/${id}`, {
+      await axios.delete(`${BASE_URL}/url/${id}`, {
         headers: { Authorization: token },
       });
       toast.success("Link deleted");
@@ -151,7 +152,7 @@ export default function Dashboard() {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/url/${editUrlId}`,
+        `${BASE_URL}/url/${editUrlId}`,
         { longUrl: newDestination },
         { headers: { Authorization: token } }
       );
@@ -164,7 +165,7 @@ export default function Dashboard() {
   };
 
   const handleCopyLink = (shortCode, id) => {
-    const link = `http://localhost:5000/${shortCode}`;
+    const link = `${BASE_URL}/${shortCode}`;
     navigator.clipboard.writeText(link);
     setCopiedId(id);
     toast.success("Copied to clipboard!");
@@ -172,7 +173,7 @@ export default function Dashboard() {
   };
 
   const handleShareLink = (shortCode) => {
-    const link = `http://localhost:5000/${shortCode}`;
+    const link = `${BASE_URL}/${shortCode}`;
     if (navigator.share) {
       navigator.share({
         title: 'Nexus URL Shortener',
@@ -230,7 +231,7 @@ export default function Dashboard() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/shorten/bulk",
+        `${BASE_URL}/shorten/bulk`,
         { urls: bulkUrls },
         { headers: { Authorization: token } }
       );
@@ -528,12 +529,12 @@ export default function Dashboard() {
           <h3 className="success-title"><FiCheck /> Short Link Created Successfully!</h3>
           <div className="success-box">
             <a 
-              href={`http://localhost:5000/${lastShortened.shortCode}`}
+              href={`${BASE_URL}/${lastShortened.shortCode}`}
               target="_blank"
               rel="noreferrer"
               className="success-link"
             >
-              http://localhost:5000/{lastShortened.shortCode}
+              {`${BASE_URL}/${lastShortened.shortCode}`}
             </a>
             <div className="success-actions">
               <button 
@@ -615,7 +616,7 @@ export default function Dashboard() {
                       </td>
                       <td>
                         <a 
-                          href={`http://localhost:5000/${url.shortCode}`} 
+                          href={`${BASE_URL}/${url.shortCode}`} 
                           target="_blank" 
                           rel="noreferrer" 
                           className="short-link"
@@ -777,7 +778,7 @@ export default function Dashboard() {
               <div className="qr-card-content">
                 <div className="qr-canvas-container">
                   <QRCodeCanvas 
-                    value={`http://localhost:5000/${selectedUrl.shortCode}`} 
+                    value={`${BASE_URL}/${selectedUrl.shortCode}`} 
                     size={140}
                     id={`qr-${selectedUrl.shortCode}`}
                     level={"H"}
@@ -1011,7 +1012,7 @@ export default function Dashboard() {
                         <td className="url-col"><div className="url-truncated">{url.longUrl}</div></td>
                         <td>
                           <a 
-                            href={`http://localhost:5000/${url.shortCode}`} 
+                            href={`${BASE_URL}/${url.shortCode}`} 
                             target="_blank" 
                             rel="noreferrer" 
                             className="short-link"
