@@ -194,7 +194,7 @@ const getStyledErrorHtml = (title, message) => `
 ----------------------------*/
 
 // Create short URL (PROTECTED)
-app.post("/shorten", auth, async (req, res) => {
+app.post("/api/shorten", auth, async (req, res) => {
   const { longUrl, customAlias, expiresAt } = req.body;
 
   if (!longUrl) {
