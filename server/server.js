@@ -12,14 +12,18 @@ const auth = require("./middleware/auth");
 const app = express();
 
 // Middleware
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin || origin.startsWith("http://localhost:") || origin.startsWith("http://127.0.0.1:")) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true
+// }));
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || origin.startsWith("http://localhost:") || origin.startsWith("http://127.0.0.1:")) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: true,
   credentials: true
 }));
 app.use(express.json());
@@ -470,6 +474,9 @@ app.get("/:shortCode", async (req, res) => {
    START SERVER
 ----------------------------*/
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
