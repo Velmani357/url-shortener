@@ -164,7 +164,7 @@ export default function MyUrls() {
         <td><div className="skeleton skeleton-badge"></div></td>
         <td><div className="skeleton skeleton-badge"></div></td>
         <td>
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ display: "flex", gap: "12px" }}>
             <div className="skeleton skeleton-btn"></div>
             <div className="skeleton skeleton-btn"></div>
             <div className="skeleton skeleton-btn"></div>

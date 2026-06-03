@@ -26,7 +26,7 @@ export default function CreateShortUrl() {
     try {
       setLoading(true);
       const res = await axios.post(
-        `${BASE_URL}/shorten`,
+        `${BASE_URL}/api/shorten`,
         { longUrl, customAlias, expiresAt: expiresAt || null },
         { headers: { Authorization: token } }
       );

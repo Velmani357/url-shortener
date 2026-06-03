@@ -521,19 +521,19 @@ body {
 /* HIGH CONTRAST ACTIONS (SaaS Colors) */
 .action-btns {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .action-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 /* Copy Button: Green */
@@ -974,9 +974,9 @@ body {
   border-radius: 6px;
 }
 .skeleton-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
 }
 .skeleton-row td {
   background: transparent !important;
