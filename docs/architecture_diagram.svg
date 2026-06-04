@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <defs>
+    <!-- Background grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.7" opacity="0.6"/>
+    </pattern>
+
+    <!-- Glowing effects for the three layers -->
+    <filter id="glow-blue" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#3b82f6" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow-orange" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#f97316" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow-green" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#10b981" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Arrow head markers for flows -->
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#06b6d4" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f97316" />
+    </marker>
+
+    <!-- Gradients for Cards -->
+    <linearGradient id="card-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="card-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="card-green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, sans-serif; font-size: 24px; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 400; fill: #94a3b8; }
+    .layer-title { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; }
+    .card-title { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; fill: #f8fafc; }
+    .card-subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 600; fill: #fddf47; }
+    .card-body { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #94a3b8; line-height: 1.4; }
+    .db-field { font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: bold; fill: #10b981; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 700; text-anchor: middle; }
+    .legend-text { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 600; fill: #cbd5e1; }
+  </style>
+
+  <!-- Deep space background -->
+  <rect width="1000" height="800" fill="#0b0f19" />
+  
+  <!-- Subtle developer grid -->
+  <rect width="1000" height="800" fill="url(#grid)" opacity="0.4" />
+
+  <!-- DIAGRAM HEADER -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">URL Shortener Web Application</text>
+    <text class="subtitle" x="0" y="22">System Architecture &amp; Data Flow Diagram</text>
+    <line x1="0" y1="32" x2="360" y2="32" stroke="#3b82f6" stroke-width="2" opacity="0.8"/>
+  </g>
+
+  <!-- LEGEND -->
+  <g transform="translate(580, 25)">
+    <rect width="380" height="65" rx="8" fill="#111827" stroke="#1e293b" stroke-width="1.5" />
+    <!-- Flow A Legend -->
+    <line x1="20" y1="22" x2="50" y2="22" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#arrow-cyan)" />
+    <text class="legend-text" x="65" y="26">Flow A: URL Shortening (POST)</text>
+    
+    <!-- Flow B Legend -->
+    <line x1="20" y1="44" x2="50" y2="44" stroke="#f97316" stroke-width="2.5" stroke-dasharray="3 3" marker-end="url(#arrow-orange)" />
+    <text class="legend-text" x="65" y="48">Flow B: Redirection &amp; Tracking (GET)</text>
+  </g>
+
+  <!-- ================= CLIENT LAYER ================= -->
+  <g transform="translate(0, 110)">
+    <!-- Layer boundary -->
+    <rect x="40" y="0" width="920" height="150" rx="12" fill="#0f172a" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4 4" />
+    <text class="layer-title" x="55" y="24" fill="#3b82f6">CLIENT LAYER</text>
+
+    <!-- Component: User Browser -->
+    <g transform="translate(80, 40)">
+      <rect width="340" height="85" rx="8" fill="url(#card-blue)" stroke="#3b82f6" stroke-width="2" filter="url(#glow-blue)" />
+      <text class="card-title" x="20" y="28">User Browser</text>
+      <text class="card-body" x="20" y="48">• Renders Web Application Interface</text>
+      <text class="card-body" x="20" y="64">• Handles HTTP 301/302 Redirect Responses</text>
+    </g>
+
+    <!-- Component: User Interface -->
+    <g transform="translate(580, 40)">
+      <rect width="340" height="85" rx="8" fill="url(#card-blue)" stroke="#3b82f6" stroke-width="2" filter="url(#glow-blue)" />
+      <text class="card-title" x="20" y="28">User Interface (Web App)</text>
+      <text class="card-body" x="20" y="48">• URL Shortener Form (Input &amp; Shorten)</text>
+      <text class="card-body" x="20" y="64">• Interactive Link Analytics Dashboard</text>
+    </g>
+  </g>
+
+  <!-- ================= API & BUSINESS LOGIC LAYER ================= -->
+  <g transform="translate(0, 280)">
+    <!-- Layer boundary -->
+    <rect x="40" y="0" width="920" height="290" rx="12" fill="#0f172a" fill-opacity="0.25" stroke="#f97316" stroke-width="1" stroke-dasharray="4 4" />
+    <text class="layer-title" x="55" y="24" fill="#f97316">API &amp; BUSINESS LOGIC LAYER</text>
+
+    <!-- Component: API Gateway / Routing -->
+    <g transform="translate(80, 40)">
+      <rect width="840" height="70" rx="8" fill="url(#card-orange)" stroke="#f97316" stroke-width="2" filter="url(#glow-orange)" />
+      <text class="card-title" x="20" y="40">API Gateway / Express Router</text>
+      <text class="card-body" x="20" y="55">Handles incoming HTTP requests, CORS, and endpoint routing</text>
+
+      <!-- Routing pill: POST /shorten -->
+      <g transform="translate(360, 15)">
+        <rect width="220" height="40" rx="6" fill="#1e293b" stroke="#f97316" stroke-opacity="0.7" stroke-width="1.5" />
+        <text class="card-title" x="110" y="24" text-anchor="middle" font-size="12">POST /api/shorten</text>
+      </g>
+
+      <!-- Routing pill: GET /{shortId} -->
+      <g transform="translate(600, 15)">
+        <rect width="220" height="40" rx="6" fill="#1e293b" stroke="#f97316" stroke-opacity="0.7" stroke-width="1.5" />
+        <text class="card-title" x="110" y="24" text-anchor="middle" font-size="12">GET /:shortCode</text>
+      </g>
+    </g>
+
+    <!-- Component: Express Backend / Logic -->
+    <g transform="translate(80, 130)">
+      <rect width="840" height="135" rx="8" fill="url(#card-orange)" stroke="#ea580c" stroke-width="1.5" />
+      <text class="card-title" x="20" y="25">Express.js / Node.js Backend Server</text>
+
+      <!-- Subservice: URL Validation -->
+      <g transform="translate(20, 45)">
+        <rect width="180" height="70" rx="6" fill="#1e293b" stroke="#f97316" stroke-opacity="0.5" stroke-width="1" />
+        <text class="card-subtitle" x="15" y="25">URL Validation Logic</text>
+        <text class="card-body" x="15" y="42">Validates URL format</text>
+        <text class="card-body" x="15" y="55">and http/https protocols</text>
+      </g>
+
+      <!-- Subservice: Unique ID Generation -->
+      <g transform="translate(220, 45)">
+        <rect width="180" height="70" rx="6" fill="#1e293b" stroke="#f97316" stroke-opacity="0.5" stroke-width="1" />
+        <text class="card-subtitle" x="15" y="25">Unique ID Gen (Hasher)</text>
+        <text class="card-body" x="15" y="42">Generates random base36</text>
+        <text class="card-body" x="15" y="55">6-char shortCodes</text>
+      </g>
+
+      <!-- Subservice: URL Shortening Service -->
+      <g transform="translate(420, 45)">
+        <rect width="200" height="70" rx="6" fill="#1e293b" stroke="#00f0ff" stroke-width="1.5" />
+        <text class="card-subtitle" x="15" y="25" fill="#00f0ff">URL Shortening Service</text>
+        <text class="card-body" x="15" y="42">Orchestrates creation flow</text>
+        <text class="card-body" x="15" y="55">and DB mapping records</text>
+      </g>
+
+      <!-- Subservice: Click Tracking -->
+      <g transform="translate(640, 45)">
+        <rect width="180" height="70" rx="6" fill="#1e293b" stroke="#f97316" stroke-opacity="0.5" stroke-width="1" />
+        <text class="card-subtitle" x="15" y="25">Click Tracking Logic</text>
+        <text class="card-body" x="15" y="42">Records browser, device,</text>
+        <text class="card-body" x="15" y="55">geo IP, and referrers</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= DATA LAYER ================= -->
+  <g transform="translate(0, 590)">
+    <!-- Layer boundary -->
+    <rect x="40" y="0" width="920" height="170" rx="12" fill="#0f172a" fill-opacity="0.25" stroke="#10b981" stroke-width="1" stroke-dasharray="4 4" />
+    <text class="layer-title" x="55" y="24" fill="#10b981">DATA LAYER</text>
+
+    <!-- Database component -->
+    <g transform="translate(250, 35)">
+      <rect width="500" height="115" rx="8" fill="url(#card-green)" stroke="#10b981" stroke-width="2" filter="url(#glow-green)" />
+      <text class="card-title" x="20" y="28">Database: MongoDB (Mongoose URLs Collection)</text>
+      
+      <!-- Schema fields panel -->
+      <rect x="20" y="42" width="460" height="60" rx="4" fill="#0f172a" stroke="#10b981" stroke-opacity="0.3" stroke-width="1" />
+      
+      <g transform="translate(35, 58)">
+        <!-- Col 1 -->
+        <text class="db-field" x="0" y="0">originalUrl : String</text>
+        <text class="db-field" x="0" y="18">shortCode   : String (unique)</text>
+        <text class="db-field" x="0" y="36">clickCount  : Number (default: 0)</text>
+        <!-- Col 2 -->
+        <text class="db-field" x="220" y="0">expiresAt    : Date (nullable)</text>
+        <text class="db-field" x="220" y="18">visitHistory : Array (Analytics)</text>
+        <text class="db-field" x="220" y="36">timestamps   : {createdAt, updatedAt}</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= FLOW ARROWS & LABELS ================= -->
+  
+  <!-- FLOW A: SHORTENING FLOW (Cyan) -->
+  
+  <!-- 1. Web App UI to API Gateway POST /shorten -->
+  <path d="M 750 235 L 750 252 L 550 252 L 550 320" fill="none" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#arrow-cyan)" />
+  <rect x="585" y="244" width="130" height="16" fill="#0b0f19" rx="3" />
+  <text class="flow-label" x="650" y="256" fill="#06b6d4">POST /shorten</text>
+
+  <!-- 2. API Gateway to URL Shortening Service -->
+  <path d="M 550 395 L 550 450" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrow-cyan)" />
+
+  <!-- 3. Shortening Service to MongoDB (Save to DB) -->
+  <path d="M 520 530 L 520 620" fill="none" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#arrow-cyan)" />
+  <rect x="465" y="563" width="90" height="18" fill="#0b0f19" rx="3" />
+  <text class="flow-label" x="510" y="576" fill="#06b6d4">Save to DB</text>
+
+  <!-- 4. Return Short URL back to Web App UI -->
+  <path d="M 540 450 L 540 410 L 850 410 L 850 235" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrow-cyan)" />
+  <rect x="715" y="401" width="125" height="18" fill="#0b0f19" rx="3" />
+  <text class="flow-label" x="778" y="414" fill="#06b6d4">Return Short URL</text>
+
+
+  <!-- FLOW B: REDIRECTION FLOW (Orange) -->
+
+  <!-- 1. User Browser to API Gateway GET /{shortId} -->
+  <path d="M 250 235 L 250 267 L 790 267 L 790 320" fill="none" stroke="#f97316" stroke-width="2.5" stroke-dasharray="4 4" marker-end="url(#arrow-orange)" />
+  <rect x="265" y="258" width="120" height="18" fill="#0b0f19" rx="3" />
+  <text class="flow-label" x="325" y="271" fill="#f97316">GET /{shortId}</text>
+
+  <!-- 2. API Gateway to Click Tracking / Redirect Router -->
+  <path d="M 790 395 L 790 450" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-orange)" />
+
+  <!-- 3. Click Tracking / Redirect Logic to DB (Fetch original URL) -->
+  <path d="M 770 530 L 770 575 L 430 575 L 430 620" fill="none" stroke="#f97316" stroke-width="2.5" stroke-dasharray="4 4" marker-end="url(#arrow-orange)" />
+  <rect x="580" y="566" width="135" height="18" fill="#0b0f19" rx="3" />
+  <text class="flow-label" x="647" y="579" fill="#f97316">Fetch original URL</text>
+
+  <!-- 4. Express Redirect Back to Browser (301 Redirect) -->
+  <path d="M 720 450 L 720 425 L 320 425 L 320 235" fill="none" stroke="#f97316" stroke-width="2.5" stroke-dasharray="4 4" marker-end="url(#arrow-orange)" />
+  <rect x="360" y="416" width="105" height="18" fill="#0b0f19" rx="3" />
+  <text class="flow-label" x="412" y="429" fill="#f97316">301 Redirect</text>
+
+</svg>
